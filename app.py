@@ -7,12 +7,14 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello World from claytonbraden in 3308'
 
+#route to test our database link from render
 @app.route('/db_test')
 def db_test():
     conn = psycopg2.connect("postgresql://lab_10_claytonbraden_db_user:oCclnkfeDRkdEGjWij43wCIVuQ5g0GvD@dpg-cvg95flrie7s73bnf35g-a.oregon-postgres.render.com/lab_10_claytonbraden_db")
     conn.close()
     return 'Database Connection sucessful'
 
+#route to create a table using render db link
 @app.route('/db_create')
 def db_create():
     conn = psycopg2.connect("postgresql://lab_10_claytonbraden_db_user:oCclnkfeDRkdEGjWij43wCIVuQ5g0GvD@dpg-cvg95flrie7s73bnf35g-a.oregon-postgres.render.com/lab_10_claytonbraden_db")
@@ -30,4 +32,19 @@ def db_create():
     conn.close()
     return 'Basketball Table Succesfully Created'
 
-    
+#route to populate our db table with information
+@app.route('/db_insert')
+def db_create():
+    conn = psycopg2.connect("postgresql://lab_10_claytonbraden_db_user:oCclnkfeDRkdEGjWij43wCIVuQ5g0GvD@dpg-cvg95flrie7s73bnf35g-a.oregon-postgres.render.com/lab_10_claytonbraden_db")
+    cur = conn.cursor()
+    cur.execute('''
+    INSERT INTO Basketball (First, Last, City, Name, Number)
+    Values
+    ('Jayson', 'Tatum', 'Boston', 'Celtics', 0),
+    ('Stephen', 'Curry', 'San Francisco', 'Warriors', 30),
+    ('Nikola', 'Jokic', 'Denver', 'Nuggets', 15),
+    ('Kawhi', 'Leonard', 'Los Angeles', 'Clippers', 2);
+''')
+    conn.commit()
+    conn.close()
+    return 'Basketball Table Sucesfully populated'
