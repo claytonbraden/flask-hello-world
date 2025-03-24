@@ -82,17 +82,17 @@ def db_select():
         htmlTable += f'<th>{column}</th>'
     
     #Add rows to html table
-    html_table += '</tr>'
+    htmlTable += '</tr>'
  
     for row in records:
-        html_table += '<tr>'    #starts a new row
+        htmlTable += '<tr>'    #starts a new row
         for cell in row:
-            html_table += f'<td>{cell}</td>' #creates new cell to 
-        html_table += '</tr>'  #ends row
+            htmlTable += f'<td>{cell}</td>' #creates new cell to 
+        htmlTable += '</tr>'  #ends row
     
-    html_table += '</table>' #ends the table
+    htmlTable += '</table>' #ends the table
     
 
     
-    return html_table
+    return htmlTable
 
