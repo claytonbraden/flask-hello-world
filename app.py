@@ -19,6 +19,13 @@ def db_test():
 def db_create():
     conn = psycopg2.connect("postgresql://lab_10_claytonbraden_db_user:oCclnkfeDRkdEGjWij43wCIVuQ5g0GvD@dpg-cvg95flrie7s73bnf35g-a.oregon-postgres.render.com/lab_10_claytonbraden_db")
     cur = conn.cursor()
+    
+    # Drop table if it exists
+    cur.execute('''
+    DROP TABLE IF EXISTS Basketball;
+    ''')
+    
+    #Create table
     cur.execute('''
     CREATE TABLE IF NOT EXISTS Basketball(
         First varchar(255),
@@ -43,8 +50,11 @@ def db_insert():
     ('Jayson', 'Tatum', 'Boston', 'Celtics', 0),
     ('Stephen', 'Curry', 'San Francisco', 'Warriors', 30),
     ('Nikola', 'Jokic', 'Denver', 'Nuggets', 15),
-    ('Kawhi', 'Leonard', 'Los Angeles', 'Clippers', 2);
-''')
+    ('Kawhi', 'Leonard', 'Los Angeles', 'Clippers', 2) AS new_data(First, Last, City, Name, Number)
+    WHERE NOT EXISTS (
+        SELECT 1 FROM Basketball WHERE First = new_data.First AND Last = new_data.Last AND Name = new_data.Name
+    );
+''') 
     conn.commit()
     conn.close()
     return 'Basketball Table Sucesfully populated'
