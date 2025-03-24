@@ -48,3 +48,17 @@ def db_insert():
     conn.commit()
     conn.close()
     return 'Basketball Table Sucesfully populated'
+
+#route to select and show our populated table
+@app.route('/db_select')
+def db_select():
+    conn = psycopg2.connect("postgresql://lab_10_claytonbraden_db_user:oCclnkfeDRkdEGjWij43wCIVuQ5g0GvD@dpg-cvg95flrie7s73bnf35g-a.oregon-postgres.render.com/lab_10_claytonbraden_db")
+    cur = conn.cursor()
+    cur.execute('''
+        SELECT * FROM Basketball;
+        ''')
+    records = cur.fetchall()
+    
+    conn.commit()
+    conn.close()
+    return 'Basketball Table Sucesfully populated'
