@@ -61,4 +61,4 @@ def db_select():
     
     conn.commit()
     conn.close()
-    return 'Basketball Table Sucesfully populated'
+    return records
