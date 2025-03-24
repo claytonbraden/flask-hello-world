@@ -69,11 +69,30 @@ def db_select():
         SELECT * FROM Basketball;
         ''')
     records = cur.fetchall()
-    
+    #get column names
+    columns = [desc[0] for desc in cur.description]
     conn.commit()
     conn.close()
     
-     # Convert records to HTML format
-    record_html = "<br>".join([f"First: {row[0]}, Last: {row[1]}, City: {row[2]}, Name: {row[3]}, Number: {row[4]}" for row in records])
+    #Create html table with format
+    htmlTable = '<table border="1"><tr>'
     
-    return record_html
+    #Add column names with header cells
+    for column in columns:
+        htmlTable += f'<th>{column}</th>'
+    
+    #Add rows to html table
+    html_table += '</tr>'
+ 
+    for row in records:
+        html_table += '<tr>'    #starts a new row
+        for cell in row:
+            html_table += f'<td>{cell}</td>' #creates new cell to 
+        html_table += '</tr>'  #ends row
+    
+    html_table += '</table>' #ends the table
+    
+
+    
+    return html_table
+
