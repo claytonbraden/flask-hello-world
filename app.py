@@ -50,17 +50,13 @@ def db_insert():
     ('Jayson', 'Tatum', 'Boston', 'Celtics', 0),
     ('Stephen', 'Curry', 'San Francisco', 'Warriors', 30),
     ('Nikola', 'Jokic', 'Denver', 'Nuggets', 15),
-    ('Kawhi', 'Leonard', 'Los Angeles', 'Clippers', 2) AS new_data(First, Last, City, Name, Number)
-    WHERE NOT EXISTS (
-        SELECT 1 FROM Basketball WHERE First = new_data.First AND Last = new_data.Last AND Name = new_data.Name
-    );
+    ('Kawhi', 'Leonard', 'Los Angeles', 'Clippers', 2) 
 ''') 
     conn.commit()
     conn.close()
     return 'Basketball Table Sucesfully populated'
 
 #route to select and show our populated table
-
 @app.route('/db_select')
 def db_select():
     conn = psycopg2.connect("postgresql://lab_10_claytonbraden_db_user:oCclnkfeDRkdEGjWij43wCIVuQ5g0GvD@dpg-cvg95flrie7s73bnf35g-a.oregon-postgres.render.com/lab_10_claytonbraden_db")
